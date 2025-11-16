@@ -27,19 +27,34 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
+      - name: Debug environment variables
+        run: |
+          echo "Verificando variáveis de ambiente..."
+          echo "VITE_WEBSOCKET_BINANCE_URL definida: ${{ secrets.VITE_WEBSOCKET_BINANCE_URL != '' }}"
+          echo "VITE_API_BINANCE_URL definida: ${{ secrets.VITE_API_BINANCE_URL != '' }}"
+          echo "Valor (primeiros 20 chars): ${VITE_WEBSOCKET_BINANCE_URL:0:20}"
+        env:
+          VITE_WEBSOCKET_BINANCE_URL: ${{ secrets.VITE_WEBSOCKET_BINANCE_URL }}
+          VITE_API_BINANCE_URL: ${{ secrets.VITE_API_BINANCE_URL }}
+
       - name: Build project
         env:
           VITE_WEBSOCKET_BINANCE_URL: ${{ secrets.VITE_WEBSOCKET_BINANCE_URL }}
           VITE_API_BINANCE_URL: ${{ secrets.VITE_API_BINANCE_URL }}
         run: pnpm build
 
+      - name: Verify build output
+        run: |
+          echo "Verificando se as variáveis foram injetadas no build..."
+          grep -r "VITE_WEBSOCKET_BINANCE_URL" dist/ || echo "String literal NÃO encontrada (isso é BOM!)"
+          grep -r "stream.binance.com" dist/ && echo "URL da Binance encontrada no build!" || echo "URL NÃO encontrada no build!"
+
       - name: Deploy to S3
         run: aws s3 sync ./dist s3://newcharge-crypto-dashboard --delete
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY}}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           AWS_REGION: ${{ secrets.AWS_REGION }}
-
 
       - name: Invalidate CloudFront cache
         run: |
@@ -48,5 +63,5 @@ jobs:
             --paths "/*"
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY}}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           AWS_REGION: ${{ secrets.AWS_REGION }}
