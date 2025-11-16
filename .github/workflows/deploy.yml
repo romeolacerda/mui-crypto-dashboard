@@ -29,8 +29,8 @@ jobs:
 
       - name: Build project
         env:
-            VITE_WEBSOCKET_BINANCE_URL: ${{ secrets.VITE_WEBSOCKET_BINANCE_URL }}
-            VITE_API_BINANCE_URL: ${{ secrets.VITE_API_BINANCE_URL }}
+          VITE_WEBSOCKET_BINANCE_URL: ${{ secrets.VITE_WEBSOCKET_BINANCE_URL }}
+          VITE_API_BINANCE_URL: ${{ secrets.VITE_API_BINANCE_URL }}
         run: pnpm build
 
       - name: Deploy to S3
