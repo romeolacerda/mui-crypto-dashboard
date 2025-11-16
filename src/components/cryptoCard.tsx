@@ -1,7 +1,7 @@
 import { Box, Card, CardContent, Chip, Grid, Typography } from "@mui/material";
 import type { CryptoConfig, HistoricalDataState, SymbolType } from "../interfaces/CryptoConfig";
 import { formatPrice } from "../utils/formatPrice";
-import { CardChart } from "./cardChart";
+import { CardChart } from "./cryptoCardChart";
 
 interface CryptoCardProps {
   symbol: SymbolType;

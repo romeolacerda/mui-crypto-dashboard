@@ -7,7 +7,12 @@ export const CardChart = ({ data, color }: { data: PriceData[] | undefined; colo
   if (!data || data.length === 0) return null;
 
   return (
-    <Box sx={{ width: '100%', height: 60 }}>
+    <Box sx={{
+      width: '100%', height: 60, '& *': {
+        outline: 'none !important',
+        boxShadow: 'none !important'
+      }
+    }}>
       <ResponsiveContainer width="100%" height={60}>
         <AreaChart data={data}>
           <defs>

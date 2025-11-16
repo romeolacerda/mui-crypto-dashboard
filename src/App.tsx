@@ -14,7 +14,7 @@ import { useAppController } from './useAppController';
 import { formatPrice } from './utils/formatPrice';
 
 const CryptoDashboard = () => {
-  const {selectedSymbol, setSelectedSymbol, loading, prices, priceChanges, staticHistoricalData, isMobile, realtimeData} = useAppController()
+  const { selectedSymbol, setSelectedSymbol, loading, prices, priceChanges, staticHistoricalData, isMobile, realtimeData } = useAppController()
   const getCryptoConfig = (symbol: SymbolType): CryptoConfig => {
     const configs: Record<SymbolType, CryptoConfig> = cryptos
     return configs[symbol];
@@ -67,7 +67,12 @@ const CryptoDashboard = () => {
             </Typography>
           </Box>
 
-          <Box sx={{ width: '100%', height: 400, minHeight: 400 }}>
+          <Box sx={{
+            width: '100%', height: 400, minHeight: 400, '& *': {
+              outline: 'none !important',
+              boxShadow: 'none !important'
+            }
+          }}>
             <ResponsiveContainer width="100%" height="100%">
               <AreaChart data={realtimeData[selectedSymbol] || []}>
                 <defs>
