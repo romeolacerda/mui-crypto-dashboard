@@ -34,7 +34,7 @@ const CryptoDashboard = () => {
             </Typography>
           </Box>
           <Typography variant="body1" color="text.secondary">
-            Acompanhe preços em tempo real e nos ultimos 30 dias das principais criptomoedas
+            Acompanhe preços em tempo real e nos ultimos 30 dias das principais criptomoedas - Selecione a crypto em tempo real!
           </Typography>
         </Box>
 
