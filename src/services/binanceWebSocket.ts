@@ -2,7 +2,7 @@ import { SYMBOLS } from "../config/constants";
 import type { PriceData } from "../interfaces/PriceData";
 import { calculatePriceChange } from "../utils/calculatePriceChange";
 
-const WEBSOCKET_BINANCE_URL = import.meta.env.VITE_WEBSOCKET_BINANCE_URL;
+const WEBSOCKET_BINANCE_URL = "wss://stream.binance.com:9443/ws/"
 
 interface TickerShortData {
     s: string;

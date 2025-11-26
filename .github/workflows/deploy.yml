@@ -27,16 +27,6 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
-      - name: Debug environment variables
-        run: |
-          echo "Verificando variáveis de ambiente..."
-          echo "VITE_WEBSOCKET_BINANCE_URL definida: ${{ secrets.VITE_WEBSOCKET_BINANCE_URL != '' }}"
-          echo "VITE_API_BINANCE_URL definida: ${{ secrets.VITE_API_BINANCE_URL != '' }}"
-          echo "Valor (primeiros 20 chars): ${VITE_WEBSOCKET_BINANCE_URL:0:20}"
-        env:
-          VITE_WEBSOCKET_BINANCE_URL: ${{ secrets.VITE_WEBSOCKET_BINANCE_URL }}
-          VITE_API_BINANCE_URL: ${{ secrets.VITE_API_BINANCE_URL }}
-
       - name: Build project
         run: pnpm build
         env:
