@@ -27,6 +27,12 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
+      - name: Debug ENV
+        run: |
+          echo "VITE_WEBSOCKET_BINANCE_URL:'$VITE_WEBSOCKET_BINANCE_URL'"
+        env:
+          VITE_WEBSOCKET_BINANCE_URL: ${{ secrets.VITE_WEBSOCKET_BINANCE_URL }}
+
       - name: Build project
         run: pnpm build
         env:
