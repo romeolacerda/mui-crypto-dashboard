@@ -27,9 +27,6 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
-      - name: Debug ENV
-        run: |
-          echo "VITE_WEBSOCKET_BINANCE_URL:'$VITE_WEBSOCKET_BINANCE_URL'"
         env:
           VITE_WEBSOCKET_BINANCE_URL: ${{ secrets.VITE_WEBSOCKET_BINANCE_URL }}
 
@@ -39,12 +36,6 @@ jobs:
         env:
           VITE_WEBSOCKET_BINANCE_URL: ${{ secrets.VITE_WEBSOCKET_BINANCE_URL }}
           VITE_API_BINANCE_URL: ${{ secrets.VITE_API_BINANCE_URL }}
-
-      - name: Verify build output
-        run: |
-          echo "Verificando se as variáveis foram injetadas no build..."
-          grep -r "VITE_WEBSOCKET_BINANCE_URL" dist/ || echo "String literal NÃO encontrada (isso é BOM!)"
-          grep -r "stream.binance.com" dist/ && echo "URL da Binance encontrada no build!" || echo "URL NÃO encontrada no build!"
 
       - name: Deploy to S3
         run: aws s3 sync ./dist s3://newcharge-crypto-dashboard --delete
