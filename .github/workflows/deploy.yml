@@ -38,10 +38,10 @@ jobs:
           VITE_API_BINANCE_URL: ${{ secrets.VITE_API_BINANCE_URL }}
 
       - name: Build project
+        run: pnpm build
         env:
           VITE_WEBSOCKET_BINANCE_URL: ${{ secrets.VITE_WEBSOCKET_BINANCE_URL }}
           VITE_API_BINANCE_URL: ${{ secrets.VITE_API_BINANCE_URL }}
-        run: pnpm build
 
       - name: Verify build output
         run: |
